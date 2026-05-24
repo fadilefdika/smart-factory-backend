@@ -25,6 +25,7 @@ type DeviceRepository interface {
 	List() ([]Device, error)
 	SaveTelemetry(deviceID uuid.UUID, data string) error
 	TriggerAIInspection(deviceID uuid.UUID) (*AIInspectionResponse, error)
+	GetTelemetryData()(map[uuid.UUID][]string, error)
 }
 
 type AIInspectionResult struct {
@@ -45,4 +46,5 @@ type DeviceUsecase interface {
 	GetDeviceStatus(id uuid.UUID) (*Device, error)
 	ListDevices(deviceType string) ([]Device, error)
 	SaveTelemetry(deviceID uuid.UUID, data string) error
+	GetTelemetryData()(map[uuid.UUID][]string,error)
 }

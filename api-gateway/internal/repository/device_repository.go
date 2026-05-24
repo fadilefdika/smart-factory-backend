@@ -88,6 +88,19 @@ func (r *deviceRepository) SaveTelemetry(deviceID uuid.UUID, data string) error 
 	return nil
 }
 
+func (r *deviceRepository) GetTelemetryData() (map[uuid.UUID][]string, error){
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+
+	result := make(map[uuid.UUID][]string)
+
+	for deviceID,message := range r.telemetry{
+		result[deviceID] = message
+	}
+
+	return result, nil
+} 
+
 func (r *deviceRepository) TriggerAIInspection(deviceID uuid.UUID) (*domain.AIInspectionResponse, error) {
 	// 1. Ambil URL AI Service dari environment, default ke localhost:8000
 	aiServiceURL := os.Getenv("AI_QC_SERVICE_URL")
