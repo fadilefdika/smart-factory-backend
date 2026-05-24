@@ -67,3 +67,8 @@ func (u *deviceUsecase) SaveTelemetry(deviceID uuid.UUID, data string) error {
 
 	return u.deviceRepo.SaveTelemetry(deviceID, data)
 }
+
+
+func (u *deviceUsecase) GetTelemetryData()(map[uuid.UUID][]string, error){
+	return u.deviceRepo.GetTelemetryData()
+}

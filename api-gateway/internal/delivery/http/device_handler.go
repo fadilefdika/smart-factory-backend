@@ -21,6 +21,7 @@ func NewDeviceHandler(r *gin.Engine, us domain.DeviceUsecase) {
 	{
 		api.GET("/devices", handler.ListDevices)
 		api.POST("/devices", handler.RegisterDevice)
+		api.GET("/devices/telemetry", handler.GetTelemetryData)
 		api.GET("/devices/:id/status", handler.GetDeviceStatus)
 	}
 }
@@ -72,4 +73,18 @@ func (h *DeviceHandler) GetDeviceStatus(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, device)
+}
+
+
+func (h *DeviceHandler) GetTelemetryData(c *gin.Context){
+	result,err := h.deviceUsecase.GetTelemetryData()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK,gin.H{
+		"status": "success",
+		"data":   result,
+	})
 }
