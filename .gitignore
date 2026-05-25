@@ -1,0 +1,14 @@
+# File konfigurasi rahasia
+.env
+.env.local
+
+# File binary hasil build Go
+*.exe
+*.exe~
+main
+server
+tmp_server
+
+# Folder dependensi atau cache tools
+vendor/
+.cache/
